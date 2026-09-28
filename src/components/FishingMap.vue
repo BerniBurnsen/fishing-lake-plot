@@ -27,10 +27,25 @@ let hasCenteredOnUser = false
 onMounted(() => {
   if (!mapEl.value) return
   const m = L.map(mapEl.value, { zoomControl: true }).setView(props.lake.center, props.lake.zoom)
-  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  }).addTo(m)
+
+  // Base layers. basemap.at is the official Austrian base map (free, no key). Note the {y}/{x} order.
+  const basemapAttribution = 'Datenquelle: <a href="https://basemap.at">basemap.at</a>'
+  const baseLayers = {
+    'basemap.at Standard': L.tileLayer(
+      'https://mapsneu.wien.gv.at/basemap/geolandbasemap/normal/google3857/{z}/{y}/{x}.png',
+      { maxZoom: 19, attribution: basemapAttribution },
+    ),
+    'basemap.at Orthofoto': L.tileLayer(
+      'https://mapsneu.wien.gv.at/basemap/bmaporthofoto30cm/normal/google3857/{z}/{y}/{x}.jpeg',
+      { maxZoom: 19, attribution: basemapAttribution },
+    ),
+    OpenStreetMap: L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }),
+  }
+  baseLayers['basemap.at Standard'].addTo(m)
+  L.control.layers(baseLayers, undefined, { position: 'topleft' }).addTo(m)
 
   addLocateControl(m)
   map.value = m
