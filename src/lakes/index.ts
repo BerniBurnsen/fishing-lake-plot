@@ -1,8 +1,9 @@
 import type { LakeDefinition } from '@/types'
 import { ossiacherSee } from './ossiacher-see'
+import { woerthersee } from './woerthersee'
 
 /** Register new lakes here. The first entry is the default. */
-export const lakes: readonly LakeDefinition[] = [ossiacherSee]
+export const lakes: readonly LakeDefinition[] = [ossiacherSee, woerthersee]
 
 export const defaultLake: LakeDefinition = lakes[0]!
 
