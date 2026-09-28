@@ -1,5 +1,5 @@
 import { computed, ref, watch } from 'vue'
-import type { ColorMode } from '@/types'
+import type { ColorMode, LakeDefinition } from '@/types'
 import { findLake } from '@/lakes'
 
 /**
@@ -10,15 +10,16 @@ export function useUrlState() {
   const params = new URLSearchParams(window.location.search)
 
   const lakeId = ref(params.get('lake') ?? findLake(null).id)
-  const ownerIds = ref<string[]>(splitList(params.get('owner')))
   const mode = ref<ColorMode>(params.get('mode') === 'all' ? 'all' : 'mine')
-
   const lake = computed(() => findLake(lakeId.value))
 
-  /** Owner ids that actually exist for the current lake. Unknown ids are ignored. */
-  const validOwnerIds = computed(() =>
-    ownerIds.value.filter((id) => lake.value.owners.some((o) => o.id === id)),
-  )
+  // Owner ids unknown to the lake (renamed, typo, other lake) are dropped right away so they
+  // never linger in the state or get written back to the URL.
+  const ownerIds = ref<string[]>(knownOwners(splitList(params.get('owner')), lake.value))
+
+  watch(lake, (l) => {
+    ownerIds.value = knownOwners(ownerIds.value, l)
+  })
 
   function toggleOwner(id: string) {
     ownerIds.value = ownerIds.value.includes(id)
@@ -34,7 +35,11 @@ export function useUrlState() {
     window.history.replaceState(null, '', `${window.location.pathname}?${next}`)
   })
 
-  return { lakeId, lake, ownerIds, validOwnerIds, mode, toggleOwner }
+  return { lakeId, lake, ownerIds, mode, toggleOwner }
+}
+
+function knownOwners(ids: string[], lake: LakeDefinition): string[] {
+  return ids.filter((id) => lake.owners.some((o) => o.id === id))
 }
 
 function splitList(value: string | null): string[] {

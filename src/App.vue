@@ -10,7 +10,7 @@ import { findPlotAt } from './utils/geo'
 
 const DISCLAIMER_KEY = 'disclaimerAccepted'
 
-const { lakeId, lake, ownerIds, validOwnerIds, mode, toggleOwner } = useUrlState()
+const { lakeId, lake, ownerIds, mode, toggleOwner } = useUrlState()
 const geo = useGeolocation()
 
 const currentPlot = computed(() => {
@@ -58,7 +58,7 @@ onMounted(geo.start)
     <FishingMap
       :lake="lake"
       :mode="mode"
-      :my-owner-ids="validOwnerIds"
+      :my-owner-ids="ownerIds"
       :position="geo.position.value"
       :current-plot="currentPlot"
       @locate="geo.start"
@@ -77,7 +77,7 @@ onMounted(geo.start)
       :plot="currentPlot"
       :position="geo.position.value"
       :error="geo.error.value"
-      :my-owner-ids="validOwnerIds"
+      :my-owner-ids="ownerIds"
     />
     <InfoOverlay v-if="showInfo" :first-visit="firstVisit" @close="closeInfo" />
   </div>
