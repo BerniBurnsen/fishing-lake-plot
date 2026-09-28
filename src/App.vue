@@ -61,7 +61,7 @@ onMounted(geo.start)
       :my-owner-ids="ownerIds"
       :position="geo.position.value"
       :current-plot="currentPlot"
-      @locate="geo.start"
+      @locate="geo.locate"
     />
     <ControlPanel
       :lake="lake"

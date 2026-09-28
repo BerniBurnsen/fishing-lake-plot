@@ -54,17 +54,24 @@ onBeforeUnmount(() => map.value?.remove())
 function addLocateControl(m: L.Map) {
   const Locate = L.Control.extend({
     onAdd() {
-      const btn = L.DomUtil.create('a', 'leaflet-bar leaflet-control locate-btn')
+      const bar = L.DomUtil.create('div', 'leaflet-bar leaflet-control')
+      const btn = L.DomUtil.create('a', 'locate-btn', bar)
       btn.href = '#'
       btn.title = 'Meinen Standort anzeigen'
+      btn.setAttribute('role', 'button')
       btn.textContent = '◎'
+      L.DomEvent.disableClickPropagation(bar)
       L.DomEvent.on(btn, 'click', (e) => {
         L.DomEvent.preventDefault(e)
+        // Recenter on the next fix, and immediately if we already have one.
         hasCenteredOnUser = false
+        if (props.position) {
+          hasCenteredOnUser = true
+          m.setView([props.position.lat, props.position.lng], Math.max(m.getZoom(), 16))
+        }
         emit('locate')
-        if (props.position) m.setView([props.position.lat, props.position.lng], Math.max(m.getZoom(), 16))
       })
-      return btn
+      return bar
     },
   })
   new Locate({ position: 'topleft' }).addTo(m)
