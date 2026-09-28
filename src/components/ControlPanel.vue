@@ -13,6 +13,7 @@ const emit = defineEmits<{
   'update:lakeId': [id: string]
   'update:mode': [mode: ColorMode]
   toggleOwner: [id: string]
+  info: []
 }>()
 
 function isMine(id: string) {
@@ -22,13 +23,16 @@ function isMine(id: string) {
 
 <template>
   <aside class="panel">
-    <label v-if="lakes.length > 1" class="row">
-      <span>See</span>
-      <select :value="lake.id" @change="emit('update:lakeId', ($event.target as HTMLSelectElement).value)">
-        <option v-for="l in lakes" :key="l.id" :value="l.id">{{ l.name }}</option>
-      </select>
-    </label>
-    <h1 v-else class="title">{{ lake.name }}</h1>
+    <div class="head">
+      <label v-if="lakes.length > 1" class="row">
+        <span>See</span>
+        <select :value="lake.id" @change="emit('update:lakeId', ($event.target as HTMLSelectElement).value)">
+          <option v-for="l in lakes" :key="l.id" :value="l.id">{{ l.name }}</option>
+        </select>
+      </label>
+      <h1 v-else class="title">{{ lake.name }}</h1>
+      <button class="info" title="Impressum, Datenschutz, Haftungshinweis" aria-label="Informationen" @click="emit('info')">i</button>
+    </div>
 
     <fieldset class="group">
       <legend>Meine Lizenzen</legend>
@@ -60,15 +64,32 @@ function isMine(id: string) {
   width: min(280px, calc(100vw - 20px));
   font-size: 14px;
 }
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
 .title {
-  margin: 0 0 8px;
+  margin: 0;
   font-size: 16px;
 }
 .row {
   display: flex;
   gap: 8px;
   align-items: center;
-  margin-bottom: 8px;
+}
+.info {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid #999;
+  background: #fff;
+  color: #333;
+  font: italic bold 14px Georgia, serif;
+  cursor: pointer;
 }
 .group {
   border: 1px solid #ddd;
