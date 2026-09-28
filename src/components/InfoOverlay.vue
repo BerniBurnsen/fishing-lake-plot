@@ -49,9 +49,9 @@ const emit = defineEmits<{ close: [] }>()
               <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub-Datenschutzerklärung</a>.
             </li>
             <li>
-              Die Kartenkacheln stammen von <strong>OpenStreetMap</strong>. Beim Laden erhält die
-              OpenStreetMap Foundation deine IP-Adresse
-              (<a href="https://wiki.osmfoundation.org/wiki/Privacy_Policy" target="_blank" rel="noopener">Datenschutzerklärung</a>).
+              Die Kartenkacheln stammen von <strong>basemap.at</strong>, der Verwaltungsgrundkarte Österreichs.
+              Sie werden von Servern der Stadt Wien ausgeliefert, die dabei deine IP-Adresse erhalten
+              (<a href="https://www.wien.gv.at/info/datenschutz/" target="_blank" rel="noopener">Datenschutzerklärung der Stadt Wien</a>).
             </li>
             <li>
               Es werden keine Cookies gesetzt und kein Tracking eingesetzt. Im lokalen Speicher deines Browsers

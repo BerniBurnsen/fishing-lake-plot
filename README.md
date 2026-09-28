@@ -1,7 +1,7 @@
 # austria-fishing-plot
 
 Frontend-only Vue 3 + TypeScript + Leaflet app that shows the fishing plots ("Parzellen") of Austrian
-lakes on OpenStreetMap, colors them according to the licenses you own, and tells you which plot you are
+lakes on basemap.at (standard map or aerial imagery, switchable), colors them according to the licenses you own, and tells you which plot you are
 currently in via geolocation.
 
 ## Run

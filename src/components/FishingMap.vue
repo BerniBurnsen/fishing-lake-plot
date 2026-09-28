@@ -28,7 +28,7 @@ onMounted(() => {
   if (!mapEl.value) return
   const m = L.map(mapEl.value, { zoomControl: true }).setView(props.lake.center, props.lake.zoom)
 
-  // Base layers. basemap.at is the official Austrian base map (free, no key). Note the {y}/{x} order.
+  // Base layers from basemap.at, the official Austrian base map (free, no key). Note the {y}/{x} order.
   const basemapAttribution = 'Datenquelle: <a href="https://basemap.at">basemap.at</a>'
   const baseLayers = {
     'basemap.at Standard': L.tileLayer(
@@ -39,10 +39,6 @@ onMounted(() => {
       'https://mapsneu.wien.gv.at/basemap/bmaporthofoto30cm/normal/google3857/{z}/{y}/{x}.jpeg',
       { maxZoom: 19, attribution: basemapAttribution },
     ),
-    OpenStreetMap: L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    }),
   }
   baseLayers['basemap.at Standard'].addTo(m)
   L.control.layers(baseLayers, undefined, { position: 'topleft' }).addTo(m)
