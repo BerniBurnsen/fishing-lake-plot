@@ -6,6 +6,8 @@ you own, and tells you which plot you are currently in via geolocation.
 
 Live: https://berniburnsen.github.io/fishing-lake-plot/
 
+[![QR code to the live app](docs/qrcode.png)](https://berniburnsen.github.io/fishing-lake-plot/)
+
 ## Run
 
 ```sh
