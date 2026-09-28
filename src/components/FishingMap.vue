@@ -44,6 +44,7 @@ onMounted(() => {
   L.control.layers(baseLayers, undefined, { position: 'topleft' }).addTo(m)
 
   addLocateControl(m)
+  m.on('zoomend', updateLabelVisibility)
   map.value = m
   renderPlots()
 })
@@ -78,8 +79,28 @@ function renderPlots() {
     onEachFeature: (f, layer) => {
       const plot = f as PlotFeature
       layer.bindPopup(() => popupHtml(plot))
+      layer.bindTooltip(esc(String(plot.properties.plotnumber)), {
+        permanent: true,
+        direction: 'center',
+        className: 'plot-label',
+      })
     },
   }).addTo(m)
+  updateLabelVisibility()
+}
+
+/** Hide plot numbers when zoomed out; they would overlap on small plots. */
+const LABEL_MIN_ZOOM = 14
+function updateLabelVisibility() {
+  const m = map.value
+  if (!m || !plotLayer) return
+  const visible = m.getZoom() >= LABEL_MIN_ZOOM
+  plotLayer.eachLayer((layer) => {
+    const tt = (layer as L.Path).getTooltip()
+    if (!tt) return
+    if (visible && !m.hasLayer(tt)) (layer as L.Path).openTooltip()
+    else if (!visible && m.hasLayer(tt)) (layer as L.Path).closeTooltip()
+  })
 }
 
 function isCurrent(plot: PlotFeature): boolean {
@@ -153,6 +174,24 @@ watch(() => props.position, renderPosition)
 </style>
 
 <style>
+/* Plot number labels: plain text, no box or arrow, so they don't fight with the polygon fill. */
+.plot-label {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  font-weight: 700;
+  font-size: 13px;
+  color: #111;
+  text-shadow:
+    0 0 3px #fff,
+    0 0 3px #fff,
+    0 0 3px #fff;
+}
+.plot-label::before {
+  display: none;
+}
+
 .locate-btn {
   width: 30px;
   height: 30px;
