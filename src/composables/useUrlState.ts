@@ -4,7 +4,7 @@ import { findLake } from '@/lakes'
 
 /**
  * Whole app state lives in the URL so a view can be bookmarked/shared:
- *   ?lake=ossiacher-see&owner=verein-ossiach,revier-nord&mode=mine
+ *   ?lake=ossiacher-see&owner=fischereiverein-ossiach,revier-nord&mode=mine
  */
 export function useUrlState() {
   const params = new URLSearchParams(window.location.search)

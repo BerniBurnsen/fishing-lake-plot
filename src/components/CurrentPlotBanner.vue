@@ -27,7 +27,7 @@ const state = computed<'error' | 'waiting' | 'outside' | 'ok' | 'forbidden' | 'n
     <template v-else-if="state === 'waiting'">Standort wird ermittelt…</template>
     <template v-else-if="state === 'outside'">Du befindest dich in keiner bekannten Parzelle.</template>
     <template v-else>
-      <strong>Parzelle {{ plot!.properties.parzelle }}</strong>
+      <strong>Parzelle {{ plot!.properties.plotnumber }}</strong>
       · {{ ownerName(lake, plot!.properties.owner) }}
       <span v-if="state === 'ok'"> · ✔ Fischen erlaubt</span>
       <span v-else-if="state === 'forbidden'"> · ✖ Keine Lizenz</span>

@@ -3,7 +3,7 @@ import type { Feature, FeatureCollection, MultiPolygon, Polygon } from 'geojson'
 /** Properties every plot polygon in a lake GeoJSON must carry. */
 export interface PlotProperties {
   /** Plot ("Parzelle") number as printed on the official plans. */
-  parzelle: number | string
+  plotnumber: number | string
   /** Owner id; must match an `OwnerDefinition.id` of the same lake. */
   owner: string
   /** Optional free text shown in the popup. */

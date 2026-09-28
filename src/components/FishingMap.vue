@@ -83,7 +83,7 @@ function renderPlots() {
 }
 
 function isCurrent(plot: PlotFeature): boolean {
-  return !!props.currentPlot && props.currentPlot.properties.parzelle === plot.properties.parzelle
+  return !!props.currentPlot && props.currentPlot.properties.plotnumber === plot.properties.plotnumber
 }
 
 function restyle() {
@@ -100,7 +100,7 @@ function popupHtml(plot: PlotFeature): string {
       ? '<span style="color:#2e7d32">✔ Fischen erlaubt</span>'
       : '<span style="color:#c62828">✖ Keine Lizenz</span>'
     : '<em>Keine Lizenz ausgewählt</em>'
-  return `<strong>Parzelle ${esc(String(plot.properties.parzelle))}</strong><br>` +
+  return `<strong>Parzelle ${esc(String(plot.properties.plotnumber))}</strong><br>` +
     `${esc(ownerName(props.lake, plot.properties.owner))}<br>${status}` +
     (plot.properties.note ? `<br><small>${esc(plot.properties.note)}</small>` : '')
 }

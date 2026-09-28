@@ -3,7 +3,7 @@
   "features": [
     {
       "type": "Feature",
-      "properties": { "parzelle": 44, "owner": "verein-ossiach" },
+      "properties": { "plotnumber": 44, "owner": "fischereiverein-ossiach" },
       "geometry": {
         "type": "Polygon",
         "coordinates": [[
@@ -20,7 +20,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "parzelle": "TEST-2", "owner": "verein-ossiach" },
+      "properties": { "plotnumber": "TEST-2", "owner": "fischereiverein-ossiach" },
       "geometry": {
         "type": "Polygon",
         "coordinates": [[
@@ -57,7 +57,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "parzelle": "TEST-3", "owner": "revier-nord" },
+      "properties": { "plotnumber": "TEST-3", "owner": "revier-nord" },
       "geometry": {
         "type": "Polygon",
         "coordinates": [[
@@ -76,7 +76,7 @@
     },
     {
       "type": "Feature",
-      "properties": { "parzelle": "TEST-4", "owner": "privat-mueller" },
+      "properties": { "plotnumber": "TEST-4", "owner": "privat-mueller" },
       "geometry": {
         "type": "Polygon",
         "coordinates": [[
